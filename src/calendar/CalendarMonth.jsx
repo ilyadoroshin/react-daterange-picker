@@ -28,7 +28,14 @@ const CalendarMonth = React.createClass({
   },
 
   setLocale(locale) {
+    try {
+      console.warn(`Initial language: ${locale}`);
+      require(`moment/locale/${locale === 'en' ? 'en-gb' : locale }`);
+    } catch (err) {
+      console.warn(err);
+    }
     moment.locale(locale);
+
     this.WEEKDAYS = Immutable.List(moment.weekdays()).zip(Immutable.List(moment.weekdaysShort()));
     this.MONTHS = Immutable.List(moment.months());
   },

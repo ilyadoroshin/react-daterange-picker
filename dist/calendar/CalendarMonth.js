@@ -65,7 +65,14 @@ var CalendarMonth = _react2.default.createClass({
   },
 
   setLocale: function setLocale(locale) {
+    try {
+      console.warn('Initial language: ' + locale);
+      require('moment/locale/' + (locale === 'en' ? 'en-gb' : locale));
+    } catch (err) {
+      console.warn(err);
+    }
     _moment2.default.locale(locale);
+
     this.WEEKDAYS = _immutable2.default.List(_moment2.default.weekdays()).zip(_immutable2.default.List(_moment2.default.weekdaysShort()));
     this.MONTHS = _immutable2.default.List(_moment2.default.months());
   },
